@@ -84,8 +84,7 @@ pipeline{
              when { expression {  params.action == 'create' } }
                 steps{
                    script{
-                       sh 'jf -rt upload --url http:// /artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/kubernetes-configmap-reload-0.0.1-SNAPSH
-OT.jar http://<EC2IP>:8082/artifactory/example-repo-local/'
+                       sh 'jf -rt upload --url http:// /artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar http://<EC2IP>:8082/artifactory/example-repo-local/'
                }
             }
         }
