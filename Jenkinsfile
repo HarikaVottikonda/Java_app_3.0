@@ -4,13 +4,18 @@ pipeline{
 
     agent any
     //agent { label 'Demo' }
+    environment{
+        CI = true
+        ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
+        JFROG_PASSWORD = credentials('jfrog-password')
+    }
 
     parameters{
 
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
         string(name: 'ImageName', description: "name of the docker build", defaultValue: 'javapp')
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: 'v1')
-        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'praveensingam1994')
+        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'harikavattikonda')
     }
 
     stages{
@@ -20,7 +25,7 @@ pipeline{
             steps{
             gitCheckout(
                 branch: "main",
-                url: "https://github.com/praveen1994dec/Java_app_3.0.git"
+                url: "https://github.com/HarikaVottikonda/Java_app_3.0.git"
             )
             }
         }
@@ -73,6 +78,19 @@ pipeline{
                }
             }
         }
+
+        
+        stage('Integrate Jfrog in CI pipeline'){
+             when { expression {  params.action == 'create' } }
+                steps{
+                   script{
+                       sh 'jf -rt upload --url http:// /artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/kubernetes-configmap-reload-0.0.1-SNAPSH
+OT.jar http://<EC2IP>:8082/artifactory/example-repo-local/
+               }
+            }
+        }
+
+        
         stage('Docker Image Build'){
          when { expression {  params.action == 'create' } }
             steps{
