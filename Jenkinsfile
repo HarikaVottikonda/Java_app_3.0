@@ -7,7 +7,7 @@ pipeline{
     environment{
         CI = true
         ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
-        JFROG_PASSWORD = credentials('jfrog-password')
+        //JFROG_PASSWORD = credentials('jfrog-password')
     }
 
     parameters{
