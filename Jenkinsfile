@@ -4,11 +4,11 @@ pipeline{
 
     agent any
     //agent { label 'Demo' }
-    /*environment{
+    environment{
         CI = true
         ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
         JFROG_PASSWORD = credentials('jfrog-password')
-    }*/
+    }
 
     parameters{
 
@@ -84,7 +84,8 @@ pipeline{
             // when { expression {  params.action == 'create' } }
                 steps{
                    script{
-                       sh 'curl -X PUT -u admin -T kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar http://3.85.117.81:8082/artifactory/example-repo-local/'
+                       //sh 'curl -X PUT -u admin -T kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar http://3.85.117.81:8082/artifactory/example-repo-local/'
+                       sh 'jf rt upload --url http://3.85.117.81:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar http://3.85.117.81:8082/artifactory/example-repo-local/'
                }
             }
         }
