@@ -85,7 +85,7 @@ pipeline{
                 steps{
                    script{
                        //sh 'curl -X PUT -u admin -T kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar http://3.85.117.81:8082/artifactory/example-repo-local/'
-                       sh 'jf rt upload --url http://54.242.40.83:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar java-web-app/'
+                       sh 'jf rt upload --url http://34.229.186.43:8082/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/kubernetes-configmap-reload-0.0.1-SNAPSHOT.jar java-web-app/'
                }
             }
         }
